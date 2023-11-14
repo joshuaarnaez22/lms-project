@@ -1,6 +1,6 @@
 "use client";
 import { Compass, Layout, List, BarChart } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -15,10 +15,17 @@ const teacherRoutes = [
 ];
 const SidebarRoutes = () => {
   const pathname = usePathname();
-
   const isTeacherPage = pathname?.startsWith("/teacher");
+  const [mounted, setMounted] = useState(false);
 
   const routes = isTeacherPage ? teacherRoutes : guestRoutes;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className=" flex flex-col w-full  h-full">
       {routes.map((items) => (
