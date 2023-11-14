@@ -20,12 +20,14 @@ export async function PUT(
 
     if (!courseOwner) return new NextResponse("Unauthorized", { status: 401 });
 
-    for (const item of list) {
-      await prisma.chapter.update({
-        where: { id: item.id },
-        data: { position: item.position },
-      });
-    }
+    await Promise.all([
+      list.map((item: any) => {
+        prisma.chapter.update({
+          where: { id: item.id },
+          data: { position: item.position },
+        });
+      }),
+    ]);
 
     return NextResponse.json({ message: "Course chapter position updated" });
   } catch (error) {
