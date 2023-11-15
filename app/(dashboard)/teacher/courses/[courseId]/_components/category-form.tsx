@@ -5,7 +5,7 @@ import { CourseCategorySchema } from "@/lib/schema";
 import { CoursePropsCategory } from "@/lib/type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon } from "lucide-react";
+import { Pencil, PlusCircle, ImageIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -99,7 +99,10 @@ const CategoryForm = ({
             />
 
             <Button type="submit" disabled={isSubmitting}>
-              Submit
+              <div className="flex items-center gap-1">
+                Submit
+                {isSubmitting && <Loader2 className=" animate-spin w-4 h-4" />}
+              </div>
             </Button>
           </form>
         </FormProvider>

@@ -8,7 +8,7 @@ import { CoursePropsPrice } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -79,9 +79,11 @@ const PriceForm = ({ courseId, price }: CoursePropsPrice) => {
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-8">
             <Input type="number" placeholder="Price" name="price" />
-
             <Button type="submit" disabled={isSubmitting}>
-              Submit
+              <div className="flex items-center gap-1">
+                Submit
+                {isSubmitting && <Loader2 className=" animate-spin w-4 h-4" />}
+              </div>
             </Button>
           </form>
         </FormProvider>

@@ -7,7 +7,7 @@ import { CreateCourseSchema } from "@/lib/schema";
 import { CoursePropsTitle } from "@/lib/type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -72,9 +72,11 @@ const TitleForm = ({ courseId, title }: CoursePropsTitle) => {
               placeholder="e.g Advanced web developement"
               name="title"
             />
-
             <Button type="submit" disabled={isSubmitting}>
-              Submit
+              <div className="flex items-center gap-1">
+                Submit
+                {isSubmitting && <Loader2 className=" animate-spin w-4 h-4" />}
+              </div>
             </Button>
           </form>
         </FormProvider>

@@ -75,7 +75,7 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
           <Loader2 className=" animate-spin h-6 w-6 text-sky-700" />
         </div>
       )}
-      <div className="flex justify-between items-center font-bold ">
+      <div className="flex justify-between items-center font-bold mb-4">
         <h3>Course Chapters</h3>
         <Button
           variant="ghost"
@@ -97,7 +97,10 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
             <Input type="text" placeholder="Chapter title" name="title" />
 
             <Button type="submit" disabled={isSubmitting}>
-              Create
+              <div className="flex items-center gap-1">
+                Submit
+                {isSubmitting && <Loader2 className=" animate-spin w-4 h-4" />}
+              </div>
             </Button>
           </form>
         </FormProvider>
