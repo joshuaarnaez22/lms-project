@@ -47,7 +47,7 @@ const AttachmentForm = ({ courseId, attachments }: CoursePropsAttachment) => {
 
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4 ">
-      <div className="flex justify-between items-center font-bold ">
+      <div className="flex justify-between items-center font-bold mb-2">
         <h3>Course Attachment</h3>
         <Button
           variant="ghost"

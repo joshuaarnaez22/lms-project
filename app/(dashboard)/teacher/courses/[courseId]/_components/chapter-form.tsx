@@ -63,9 +63,8 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
     }
   };
 
-  const onEdit = (id: string, title: string) => {
-    toogleEdit(title);
-    console.log(id);
+  const onEdit = (id: string) => {
+    router.push(`/teacher/courses/${courseId}/chapter/${id}`);
   };
 
   return (
@@ -75,7 +74,7 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
           <Loader2 className=" animate-spin h-6 w-6 text-sky-700" />
         </div>
       )}
-      <div className="flex justify-between items-center font-bold mb-4">
+      <div className="flex justify-between items-center font-bold mb-2">
         <h3>Course Chapters</h3>
         <Button
           variant="ghost"

@@ -27,3 +27,18 @@ export const CoursePriceSchema = yup.object().shape({
 export const CourseChapterTitlechema = yup.object().shape({
   title: yup.string().required("Course Title is required"),
 });
+
+export const ChapterTitleSchema = yup.object().shape({
+  title: yup.string().required("Chapter Title is required"),
+});
+
+export const ChapterDescriptionSchema = yup.object().shape({
+  description: yup
+    .string()
+    .required("Course description is required")
+    .test(
+      "is-empy-text",
+      "Course description is required",
+      (value) => value !== "<p><br></p>"
+    ),
+});

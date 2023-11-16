@@ -45,8 +45,6 @@ const CourseId = async ({
     },
   });
 
-  console.log(course);
-
   const categories = await prisma.category.findMany({
     orderBy: {
       name: "asc",
@@ -79,7 +77,7 @@ const CourseId = async ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <div className="flex  items-center justify-start mt-16">
-            <div className="mr-6 h-14 w-14 rounded-full bg-sky-400 flex justify-center items-center ">
+            <div className="mr-2 h-14 w-14 rounded-full bg-sky-400 flex justify-center items-center ">
               <LayoutDashboard className="h-12 w-12 p-2 text-sky-800" />
             </div>
             <h1 className="text-2xl font-medium ">Customize your course</h1>
