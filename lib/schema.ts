@@ -42,3 +42,11 @@ export const ChapterDescriptionSchema = yup.object().shape({
       (value) => value !== "<p><br></p>"
     ),
 });
+
+export const ChapterAccessSettingsSchema = yup.object().shape({
+  isFree: yup.bool().required(),
+});
+
+export const ChapterVideoSchema = yup.object().shape({
+  videoUrl: yup.string().required("Image is required"),
+});

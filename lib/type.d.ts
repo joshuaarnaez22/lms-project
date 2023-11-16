@@ -1,4 +1,4 @@
-import { Attachment, Chapter } from "@prisma/client";
+import { Attachment, Chapter, MuxData } from "@prisma/client";
 
 export type InputProps = {
   label?: string;
@@ -84,4 +84,16 @@ export type ChapterPropsDescription = {
 export type EditorProps = {
   onChange?: (value: string) => void;
   value: string;
+};
+
+export type ChapterPropsAccessSettings = {
+  courseId: string;
+  isFree: boolean;
+  chapterId: string;
+};
+
+export type ChapterPropsVideo = {
+  courseId: string;
+  chapter: chapter & { muxData?: MuxData | null };
+  chapterId;
 };

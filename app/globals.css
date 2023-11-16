@@ -89,3 +89,9 @@ body,
 .ql-container {
   font-size: 16px !important;
 }
+
+mux-player {
+  aspect-ratio: 16 / 9;
+  --media-object-fit: cover;
+  --media-object-position: center;
+}

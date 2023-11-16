@@ -1,14 +1,19 @@
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import Mux from "@mux/mux-node";
 
+const { Video } = new Mux(
+  process.env.MUX_TOKEN_ID!,
+  process.env.MUX_TOKEN_SECRET!
+);
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
     const { userId } = auth();
-    const { value } = await req.json();
+    const { isPublished, value } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -29,6 +34,33 @@ export async function PATCH(
         ...value,
       },
     });
+
+    if (value?.videoUrl) {
+      const existingMuxData = await prisma.muxData.findFirst({
+        where: { chapterId: params.chapterId },
+      });
+
+      if (existingMuxData) {
+        await Video.Assets.del(existingMuxData.assetId);
+        await prisma.muxData.delete({
+          where: { id: existingMuxData.id },
+        });
+      }
+
+      const assets = await Video.Assets.create({
+        input: value.videoUrl,
+        playback_policy: "public",
+        test: false,
+      });
+
+      await prisma.muxData.create({
+        data: {
+          chapterId: params.chapterId,
+          playbackId: assets.playback_ids?.[0].id,
+          assetId: assets.id,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "Course chapter added" });
   } catch (error) {

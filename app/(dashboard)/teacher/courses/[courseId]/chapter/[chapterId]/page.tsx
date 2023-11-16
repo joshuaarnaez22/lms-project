@@ -4,9 +4,11 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import _ from "lodash";
 import Link from "next/link";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, Eye, Video } from "lucide-react";
 import TitleFormChapter from "./_components/chapter-title-form";
 import ChapterDescriptionForm from "./_components/chapter-description-form";
+import ChapterAccessForm from "./_components/chapter-access-form";
+import ChapterVideoForm from "./_components/chapter-video-form";
 
 const ChapterId = async ({
   params,
@@ -35,7 +37,7 @@ const ChapterId = async ({
     !!chapter?.videoUrl,
   ];
   const completedFields = _.countBy(requiredFields).true || 0;
-  console.log(completedFields);
+  console.log(chapter);
 
   return (
     <div className="p-6">
@@ -77,6 +79,31 @@ const ChapterId = async ({
               chapterId={params.chapterId}
             />
           </div>
+          <div className="flex items-center ">
+            <div className="mr-2 h-14 w-14 rounded-full bg-sky-400 flex justify-center items-center ">
+              <Eye className="h-12 w-12 p-2 text-sky-800" />
+            </div>
+            <h2 className="text-xl">Access Settings</h2>
+          </div>
+
+          <ChapterAccessForm
+            isFree={chapter.isFree}
+            courseId={params.courseId}
+            chapterId={params.chapterId}
+          />
+        </div>
+        <div>
+          <div className="flex items-center space-x-2">
+            <div className="mr-2 h-14 w-14 rounded-full bg-sky-400 flex justify-center items-center ">
+              <Video className="h-12 w-12 p-2 text-sky-800" />
+            </div>
+            <h2 className="text-xl">Add a video</h2>
+          </div>
+          <ChapterVideoForm
+            chapter={chapter}
+            courseId={params.courseId}
+            chapterId={params.chapterId}
+          />
         </div>
       </div>
     </div>

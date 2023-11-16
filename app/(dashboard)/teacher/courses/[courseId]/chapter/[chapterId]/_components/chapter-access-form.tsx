@@ -1,11 +1,13 @@
 "use client";
-import Editor from "@/components/shared/editor";
-import Preview from "@/components/shared/preview";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import Textarea from "@/components/ui/textarea";
 import { courseApi } from "@/lib/api";
-import { ChapterDescriptionSchema } from "@/lib/schema";
-import { ChapterPropsDescription } from "@/lib/type";
+import {
+  ChapterAccessSettingsSchema,
+  CourseDescriptionSchema,
+} from "@/lib/schema";
+import { ChapterPropsAccessSettings, CoursePropsDescription } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
@@ -15,38 +17,38 @@ import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const ChapterDescriptionForm = ({
+const ChapterAccessForm = ({
   courseId,
-  description,
+  isFree,
   chapterId,
-}: ChapterPropsDescription) => {
+}: ChapterPropsAccessSettings) => {
   const [isEdit, setIsEdit] = useState(false);
+
   const router = useRouter();
   const methods = useForm({
-    resolver: yupResolver(ChapterDescriptionSchema),
+    resolver: yupResolver(ChapterAccessSettingsSchema),
     defaultValues: {
-      description: description || "",
+      isFree: isFree,
     },
   });
 
-  const { handleSubmit, reset, formState, setValue, watch, setError } = methods;
-  const { isSubmitting, errors } = formState;
-  const editorContent = watch("description");
+  const [free, setFree] = useState(isFree); // useState since having an issue of setting
+
+  const { handleSubmit, reset, formState, setValue } = methods;
+  const { isSubmitting } = formState;
 
   const toogleEdit = () => {
-    reset();
     setIsEdit(!isEdit);
-    setValue("description", description || "");
   };
 
-  const onSubmit = async ({ description }: any) => {
+  const onSubmit = async ({ isFree }: any) => {
     try {
       await axios.patch(`${courseApi}/${courseId}/chapters/${chapterId}`, {
-        value: { description },
+        value: { isFree },
       });
       router.refresh();
       toogleEdit();
-      toast.success("Course description updated successfully");
+      toast.success("Course access updated successfully");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -54,8 +56,9 @@ const ChapterDescriptionForm = ({
     }
   };
 
-  const onChange = (editorState: string) => {
-    setValue("description", editorState, { shouldValidate: true });
+  const onChange = (checked: boolean) => {
+    setValue("isFree", checked);
+    setFree(checked);
   };
 
   return (
@@ -71,31 +74,27 @@ const ChapterDescriptionForm = ({
           {!isEdit && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              <h3> Edit Chapter Description</h3>
+              <h3> Edit access</h3>
             </>
           )}
         </Button>
       </div>
       {!isEdit && (
-        <div
-          className={cn(
-            "text-sm mt-2",
-            !description && "text-slate-500 italic"
-          )}
-        >
-          {!description ? "No description" : <Preview value={description} />}
-        </div>
+        <p className={cn("text-sm mt-2", !isFree && "text-slate-500 italic")}>
+          {!isFree
+            ? "This chapter is not free"
+            : "This chapter is free for preview"}
+        </p>
       )}
       {isEdit && (
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-8">
-            <div>
-              <Editor value={editorContent} onChange={onChange} />
-              <p className="text-red-500 text-xs italic transition-opacity ease-in duration-700 opacity-100 mt-2">
-                {errors.description?.message?.toString()}
+            <div className="flex items-center gap-x-2">
+              <Checkbox checked={free} onCheckedChange={onChange} />
+              <p className="leading-none ">
+                Check this box if you want to make this chapter free for preview
               </p>
             </div>
-
             <Button type="submit" disabled={isSubmitting}>
               <div className="flex items-center gap-1">
                 Submit
@@ -109,4 +108,4 @@ const ChapterDescriptionForm = ({
   );
 };
 
-export default ChapterDescriptionForm;
+export default ChapterAccessForm;

@@ -11,16 +11,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Grip, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import axios from "axios";
-import { courseApi } from "@/lib/api";
 
 const ChapterList = ({ onEdit, onReorder, items }: ChapterListProps) => {
-  const [mounted, setMounted] = useState(false);
   const [chapters, setChapters] = useState(items);
-
-  //   useEffect(() => {
-  //     setMounted(true);
-  //   }, []);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;

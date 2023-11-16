@@ -5,7 +5,7 @@ import { CourseCategorySchema } from "@/lib/schema";
 import { CoursePropsCategory } from "@/lib/type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, Loader2 } from "lucide-react";
+import { Pencil, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";

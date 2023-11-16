@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { courseApi } from "@/lib/api";
 import { CoursePropsAttachment } from "@/lib/type";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
+import { PlusCircle, File, Loader2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
