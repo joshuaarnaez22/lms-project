@@ -10,7 +10,7 @@ const Editor = ({ value, onChange }: any) => {
     () =>
       dynamic(() => import("react-quill"), {
         ssr: false,
-        loading: () => <p className="bg-transparent">Loading text editor...</p>,
+        loading: () => <p className="bg-slate-100">Loading text editor...</p>,
       }),
     []
   );
