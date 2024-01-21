@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Input from "@/components/ui/input";
+import FormInput from "@/components/ui/form-input";
 import { courseApi } from "@/lib/api";
 import { CreateCourseSchema } from "@/lib/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,7 +44,7 @@ const CreateCouse = () => {
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-8">
             <div className="space-y-2">
-              <Input
+              <FormInput
                 type="text"
                 placeholder="e.g Advanced web developement"
                 name="title"

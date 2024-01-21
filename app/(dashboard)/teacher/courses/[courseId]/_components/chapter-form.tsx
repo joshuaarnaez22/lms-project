@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Input from "@/components/ui/input";
+import FormInput from "@/components/ui/form-input";
 import { courseApi } from "@/lib/api";
 import { CourseChapterTitlechema } from "@/lib/schema";
 import { CoursePropsChapter } from "@/lib/type";
@@ -93,7 +93,7 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
       {isCreating && (
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-8">
-            <Input type="text" placeholder="Chapter title" name="title" />
+            <FormInput type="text" placeholder="Chapter title" name="title" />
 
             <Button type="submit" disabled={isSubmitting}>
               <div className="flex items-center gap-1">

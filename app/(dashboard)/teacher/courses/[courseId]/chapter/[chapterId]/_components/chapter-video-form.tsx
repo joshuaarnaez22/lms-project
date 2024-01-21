@@ -1,16 +1,17 @@
 "use client";
+
+import React, { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { courseApi } from "@/lib/api";
-import { ChapterVideoSchema, CourseImageUrlSchema } from "@/lib/schema";
-import { ChapterPropsVideo, CoursePropsImageUrl } from "@/lib/type";
+import { ChapterVideoSchema } from "@/lib/schema";
+import { ChapterPropsVideo } from "@/lib/type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { Pencil, PlusCircle, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import Image from "next/image";
 import FileUpload from "@/components/shared/file-upload";
 import MuxPlayer from "@mux/mux-player-react";
 const ChapterVideoForm = ({

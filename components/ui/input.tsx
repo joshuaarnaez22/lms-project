@@ -1,60 +1,25 @@
-import React from "react";
-import { InputProps } from "@/lib/type";
-import { useFormContext } from "react-hook-form";
-import { twMerge } from "tailwind-merge";
+import * as React from "react";
 
-const Input = ({ type, label, placeholder, name, labelText }: InputProps) => {
-  const { register, formState } = useFormContext();
-  const { errors } = formState || {};
+import { cn } from "@/lib/utils";
 
-  return (
-    <div className="flex flex-col">
-      {label && (
-        <label
-          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-          htmlFor={name}
-        >
-          {label}{" "}
-          {labelText && (
-            <span className="text-[8px] text-start text-red-400">
-              {" "}
-              *{labelText}
-            </span>
-          )}
-        </label>
-      )}
-      {type === "number" ? (
-        <input
-          {...register(name)}
-          className={twMerge(
-            "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-            errors[name] ? "border-red-500" : ""
-          )}
-          type={type}
-          placeholder={placeholder}
-          id={name}
-          name={name}
-          step="0.01"
-        />
-      ) : (
-        <input
-          {...register(name)}
-          className={twMerge(
-            "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-            errors[name] ? "border-red-500" : ""
-          )}
-          type={type}
-          placeholder={placeholder}
-          id={name}
-          name={name}
-        />
-      )}
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-      <p className="text-red-500 text-xs italic transition-opacity ease-in duration-700 opacity-100 mt-2">
-        {errors[name]?.message?.toString()}
-      </p>
-    </div>
-  );
-};
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Input.displayName = "Input";
 
-export default Input;
+export { Input };

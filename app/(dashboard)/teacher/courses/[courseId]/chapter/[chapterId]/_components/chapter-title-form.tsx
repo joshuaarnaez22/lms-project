@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
-import Input from "@/components/ui/input";
+import FormInput from "@/components/ui/form-input";
 import { courseApi } from "@/lib/api";
 import { ChapterTitleSchema, CreateCourseSchema } from "@/lib/schema";
 import { ChatperPropsTitle, CoursePropsTitle } from "@/lib/type";
@@ -75,7 +75,7 @@ const TitleFormChapter = ({
       {isEdit && (
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-8">
-            <Input
+            <FormInput
               type="text"
               placeholder="e.g Introduction to the subject"
               name="title"
