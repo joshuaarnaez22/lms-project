@@ -48,7 +48,7 @@ const CourseActions = ({
         await axios.patch(`${courseApi}/${courseId}/unpublish-course`);
         toast.success("Course unpublish successfully");
       } else {
-        await axios.patch(`${courseApi}/${courseId}/publish-course`);
+        await axios.put(`${courseApi}/${courseId}/publish-course`);
         onOpen();
         toast.success("Course publish successfully");
       }

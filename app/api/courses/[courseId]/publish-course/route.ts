@@ -1,7 +1,8 @@
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-export async function PATCH(
+export async function PUT(
   req: NextRequest,
   { params }: { params: { courseId: string } }
 ) {
