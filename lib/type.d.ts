@@ -64,9 +64,9 @@ export type CoursePropsChapter = {
 };
 
 export type ChapterListProps = {
-  onEdit: (id: string) => void;
   onReorder: (updateData: { id: string; position: number }[]) => void;
   items: Chapter[];
+  courseId: string;
 };
 
 export type ChatperPropsTitle = {

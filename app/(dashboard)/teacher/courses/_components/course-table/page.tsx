@@ -5,6 +5,7 @@ import { DataTable } from "./data-table";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 
+export const revalidate = 0;
 const CourseTable = async () => {
   const { userId } = auth();
 

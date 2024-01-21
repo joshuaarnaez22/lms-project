@@ -63,10 +63,6 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
     }
   };
 
-  const onEdit = (id: string) => {
-    router.push(`/teacher/courses/${courseId}/chapter/${id}`);
-  };
-
   return (
     <div className="relative mt-6 bg-slate-100 rounded-md p-4 ">
       {isUpdating && (
@@ -117,7 +113,11 @@ const ChapterForm = ({ courseId, chapter }: CoursePropsChapter) => {
         </>
       )}
       {!isCreating && (
-        <ChapterList onEdit={onEdit} onReorder={onReorder} items={chapter} />
+        <ChapterList
+          onReorder={onReorder}
+          items={chapter}
+          courseId={courseId}
+        />
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">

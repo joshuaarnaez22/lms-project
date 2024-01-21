@@ -11,8 +11,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Grip, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
-const ChapterList = ({ onEdit, onReorder, items }: ChapterListProps) => {
+const ChapterList = ({ onReorder, items, courseId }: ChapterListProps) => {
   const [chapters, setChapters] = useState(items);
 
   const onDragEnd = (result: DropResult) => {
@@ -83,10 +84,11 @@ const ChapterList = ({ onEdit, onReorder, items }: ChapterListProps) => {
                       >
                         {chapter.isPublished ? "Published" : "Draft"}
                       </Badge>
-                      <Pencil
-                        className="h-5 w-5 cursor-pointer hover:opacity-75 transition"
-                        onClick={() => onEdit(chapter.id)}
-                      />
+                      <Link
+                        href={`/teacher/courses/${courseId}/chapter/${chapter.id}`}
+                      >
+                        <Pencil className="h-5 w-5 cursor-pointer hover:opacity-75 transition" />
+                      </Link>
                     </div>
                   </div>
                 )}
