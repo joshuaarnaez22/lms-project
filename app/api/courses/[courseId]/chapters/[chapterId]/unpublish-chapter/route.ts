@@ -28,8 +28,32 @@ export async function PATCH(
       },
     });
 
+    const course = await prisma.course.findUnique({
+      where: {
+        id: params.courseId,
+      },
+      include: {
+        chapter: {
+          where: {
+            isPublished: true,
+          },
+        },
+      },
+    });
+
+    if (!course?.chapter.length) {
+      await prisma.course.update({
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
+
     return NextResponse.json({
-      message: "Chapter published",
+      message: "Chapter unpublished",
     });
   } catch (error) {
     console.log("Publish Error", error);

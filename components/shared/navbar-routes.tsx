@@ -11,14 +11,14 @@ const NavbarRoutes = () => {
   const pathname = usePathname();
 
   const isTeacherPage = pathname?.startsWith("/teacher");
-  const isChapterPage = pathname?.includes("/chapter");
+  const isCoursesPage = pathname?.includes("/courses");
 
   const isSearch = pathname === "/search";
   return (
     <>
       <div className="hidden md:block">{isSearch && <SearchInput />}</div>
       <div className="flex gap-x-2 ml-auto">
-        {isTeacherPage || isChapterPage ? (
+        {isTeacherPage || isCoursesPage ? (
           <Link href="/">
             <Button variant="ghost">
               <LogOut className="h-4 w-4 mr-2" />

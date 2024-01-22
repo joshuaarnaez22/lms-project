@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 import prisma from "@/lib/prisma";
+import CourseSidebarItem from "./course-sidebar-item";
 
 type CourseWithProgressCategory = {
   course: Course & {
@@ -32,7 +33,26 @@ const CourseSidebar = async ({
       },
     },
   });
-  return <div>CourseSidebar</div>;
+
+  return (
+    <div className="h-full border-r flex flex-col shadow-sm overflow-y-auto w-full">
+      <div className="p-8 border-b flex flex-col">
+        <h1 className="font-semibold">{course.title}</h1>
+      </div>
+      <div className="flex flex-col">
+        {course.chapter.map((chapter) => (
+          <CourseSidebarItem
+            key={chapter.id}
+            id={chapter.id}
+            title={chapter.title}
+            isCompleted={!!chapter?.userProgress?.[0]?.isCompleted}
+            courseId={course.id}
+            isLocked={!chapter.isFree && !purchase}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default CourseSidebar;

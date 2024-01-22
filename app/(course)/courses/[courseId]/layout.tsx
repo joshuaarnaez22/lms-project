@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { getCourseProgress } from "@/actions/get-course-progress";
 import CourseSidebar from "./_components/course-sidebar";
+import CourseNavbar from "./_components/course-navbar";
 
 const CorusePageLayout = async ({
   children,
@@ -47,11 +48,14 @@ const CorusePageLayout = async ({
   const progressCount = await getCourseProgress(userId, course.id);
 
   return (
-    <div>
-      <div className="hidden lg:flex h-full z-50  fixed w-80 inset-y-0 ">
+    <div className="h-full">
+      <div className=" h-[80px] lg:pl-80 fixed inset-y-0 w-full z-50">
+        <CourseNavbar progressCount={progressCount} course={course} />
+      </div>
+      <div className="hidden lg:flex h-full z-50 fixed w-80 inset-y-0 ">
         <CourseSidebar progressCount={progressCount} course={course} />
       </div>
-      <main className="lg:pl-80 h-full">{children}</main>
+      <main className="lg:pl-80 pt-[80px] h-full">{children}</main>
     </div>
   );
 };
