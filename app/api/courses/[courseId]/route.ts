@@ -67,7 +67,9 @@ export async function DELETE(
     if (chapters.length) {
       const muxArray = chapters.map((chapter) => {
         if (chapter?.muxData) {
-          return Video.Assets.del(chapter.muxData.assetId);
+          return Video.Assets.del(chapter.muxData.assetId).catch(() => {
+            console.log("video not found");
+          });
         }
         return Promise.resolve();
       });

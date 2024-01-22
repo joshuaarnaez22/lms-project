@@ -41,7 +41,9 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        await Video.Assets.del(existingMuxData.assetId).catch(() => {
+          console.log("video not found");
+        });
         await prisma.muxData.delete({
           where: { id: existingMuxData.id },
         });

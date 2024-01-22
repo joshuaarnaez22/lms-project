@@ -71,7 +71,7 @@ const ChapterDescriptionForm = ({
           {!isEdit && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              <h3> Edit Chapter Description</h3>
+              <h3 className=" break-words"> Edit Chapter Description</h3>
             </>
           )}
         </Button>
