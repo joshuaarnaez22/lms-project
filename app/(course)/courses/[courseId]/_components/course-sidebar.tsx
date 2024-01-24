@@ -5,6 +5,7 @@ import React from "react";
 
 import prisma from "@/lib/prisma";
 import CourseSidebarItem from "./course-sidebar-item";
+import CourseProgress from "@/components/shared/course-progress";
 
 type CourseWithProgressCategory = {
   course: Course & {
@@ -38,6 +39,15 @@ const CourseSidebar = async ({
     <div className="h-full border-r flex flex-col shadow-sm overflow-y-auto w-full">
       <div className="p-8 border-b flex flex-col">
         <h1 className="font-semibold">{course.title}</h1>
+        {purchase && (
+          <div className="mt-6">
+            <CourseProgress
+              value={progressCount}
+              variant="default"
+              size="default"
+            />
+          </div>
+        )}
       </div>
       <div className="flex flex-col">
         {course.chapter.map((chapter) => (

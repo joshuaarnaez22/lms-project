@@ -17,6 +17,7 @@ export const getCourseProgress = async (userId: string, courseId: string) => {
     const validCompletedChapters = await prisma.userProgress.count({
       where: {
         userId,
+        isCompleted: true,
         chapterId: {
           in: publishedChaptersIds,
         },

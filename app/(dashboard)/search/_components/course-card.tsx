@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen } from "lucide-react";
 import { formatPrice } from "@/lib/price-format";
+import CourseProgress from "@/components/shared/course-progress";
 type CourseWithProgressCategory = Course & {
   progress: number | null;
   category: Category | null;
@@ -47,7 +48,7 @@ const CourseCard = ({ item }: CourseCardProps) => {
             </div>
           </div>
           {item.progress !== null ? (
-            "TODO"
+            <CourseProgress value={item.progress} variant="success" size="sm" />
           ) : (
             <p className="text-md font-medium text-slate-700">
               {formatPrice(item.price!)}
