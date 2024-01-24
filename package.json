@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhook",
     "lint": "next lint",
     "postinstall": "prisma generate"
   },

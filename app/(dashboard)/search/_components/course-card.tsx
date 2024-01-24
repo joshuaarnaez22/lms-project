@@ -48,7 +48,11 @@ const CourseCard = ({ item }: CourseCardProps) => {
             </div>
           </div>
           {item.progress !== null ? (
-            <CourseProgress value={item.progress} variant="success" size="sm" />
+            <CourseProgress
+              value={item.progress}
+              variant={item.progress === 100 ? "success" : "default"}
+              size="sm"
+            />
           ) : (
             <p className="text-md font-medium text-slate-700">
               {formatPrice(item.price!)}
