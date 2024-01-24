@@ -43,7 +43,7 @@ const CourseSidebar = async ({
           <div className="mt-6">
             <CourseProgress
               value={progressCount}
-              variant="default"
+              variant={progressCount === 100 ? "success" : "default"}
               size="default"
             />
           </div>
