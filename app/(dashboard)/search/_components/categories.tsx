@@ -2,7 +2,7 @@
 import { Category } from "@prisma/client";
 import React from "react";
 
-import CategoryItem from "./category-item";
+import CategoryItem from "../../../../components/shared/category-item";
 import {
   FcCamera,
   FcMusic,

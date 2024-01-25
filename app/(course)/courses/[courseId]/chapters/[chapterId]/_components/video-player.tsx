@@ -41,7 +41,7 @@ const VideoPlayer = ({
         }
       );
 
-      if (progressUpdate.data.message === "Course completed") {
+      if (progressUpdate.data.message === "Course completed" && completeOnEnd) {
         onOpen();
       }
       if (

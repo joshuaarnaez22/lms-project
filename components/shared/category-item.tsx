@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { IconType } from "react-icons/lib";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
@@ -16,10 +16,11 @@ const CategoryItem = ({ label, value, icon: Icon }: CategoryItemProps) => {
 
   const currentCategoryId = searchParams.get("categoryId");
   const currentTitle = searchParams.get("title");
+
   const isSelected = currentCategoryId === value;
 
   const clickCategory = () => {
-    const url = qs.stringifyUrl(
+    const urlParams = qs.stringifyUrl(
       {
         url: pathname,
         query: {
@@ -29,9 +30,9 @@ const CategoryItem = ({ label, value, icon: Icon }: CategoryItemProps) => {
       },
       { skipEmptyString: true, skipNull: true }
     );
-
-    router.push(url);
+    router.push(urlParams);
   };
+
   return (
     <button
       onClick={clickCategory}

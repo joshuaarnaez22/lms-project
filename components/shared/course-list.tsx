@@ -8,7 +8,7 @@ type CourseWithProgressCategory = Course & {
   chapter: {
     id: string;
   }[];
-  purchase: Purchase[];
+  purchase?: Purchase[];
 };
 
 interface CourseListProps {
