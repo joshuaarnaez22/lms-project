@@ -39,6 +39,7 @@ const SearchInput = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="relative">
       <Search className=" absolute h-4 w-4 top-3 left-3 text-slate-300" />
