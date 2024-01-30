@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/shared/preview";
 import { File } from "lucide-react";
 import CourseProgressButton from "./_components/course-progress-button";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 export async function generateMetadata({
   params,
@@ -22,8 +22,25 @@ export async function generateMetadata({
       id: params.courseId,
     },
   });
+
   return {
     title: course?.title,
+    metadataBase: new URL("https://lms-project-five.vercel.app"),
+    description: "",
+    openGraph: {
+      images: [
+        {
+          url: course?.imageUrl!,
+          width: 800,
+          height: 600,
+        },
+      ],
+      description: "Lms platform",
+      url: "https://lms-project-five.vercel.app",
+      siteName: "Next.js",
+      locale: "en_US",
+      type: "website",
+    },
   };
 }
 
