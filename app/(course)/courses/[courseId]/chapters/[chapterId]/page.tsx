@@ -23,22 +23,7 @@ export async function generateMetadata({
     },
   });
   return {
-    metadataBase: new URL("https://lms-project-five.vercel.app"),
     title: course?.title,
-    description: course?.description,
-    openGraph: {
-      title: course?.title,
-      description: course?.description!,
-      images: [course?.imageUrl!],
-      siteName: "LMS platform",
-    },
-    twitter: {
-      card: "summary_large_image",
-      site: "@eMartiiin94",
-      title: course?.title,
-      description: course?.description!,
-      images: [course?.imageUrl!],
-    },
   };
 }
 
