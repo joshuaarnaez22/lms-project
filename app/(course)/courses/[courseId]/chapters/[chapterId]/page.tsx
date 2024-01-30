@@ -10,6 +10,37 @@ import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/shared/preview";
 import { File } from "lucide-react";
 import CourseProgressButton from "./_components/course-progress-button";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { courseId: string };
+}): Promise<Metadata> {
+  const course = await prisma.course.findUnique({
+    where: {
+      id: params.courseId,
+    },
+  });
+  return {
+    metadataBase: new URL("https://lms-project-five.vercel.app"),
+    title: course?.title,
+    description: course?.description,
+    openGraph: {
+      title: course?.title,
+      description: course?.description!,
+      images: [course?.imageUrl!],
+      siteName: "LMS platform",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@eMartiiin94",
+      title: course?.title,
+      description: course?.description!,
+      images: [course?.imageUrl!],
+    },
+  };
+}
 
 const CourseChapterIdPage = async ({
   params,
