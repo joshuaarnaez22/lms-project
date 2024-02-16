@@ -1,23 +1,24 @@
 datasource db {
-    provider     = "mysql"
+    provider     = "mongodb"
     url          = env("DATABASE_URL")
     relationMode = "prisma"
 }
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["driverAdapters", "fullTextSearch", "fullTextIndex"]
 }
 
 model Course {
-    id          String   @id @default(uuid())
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
     userId      String
-    title       String   @db.Text
-    description String?  @db.Text
-    imageUrl    String?  @db.Text
+    title       String
+    description String?
+    imageUrl    String?
     price       Float?
     isPublished Boolean? @default(false)
 
-    categoryId String?
+    categoryId String?   @db.ObjectId
     category   Category? @relation(fields: [categoryId], references: [id])
 
     attachment Attachment[]
@@ -32,88 +33,84 @@ model Course {
 }
 
 model Category {
-    id     String   @id @default(uuid())
+    id     String   @id @default(auto()) @map("_id") @db.ObjectId
     name   String   @unique
     course Course[]
 }
 
 model Attachment {
-    id        String   @id @default(uuid())
-    name      String   @db.Text
-    url       String?  @db.Text
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    url       String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    courseId String
+    courseId String @unique @db.ObjectId
     course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-    @@index([courseId])
 }
 
 model Chapter {
-    id          String  @id @default(uuid())
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
     title       String
-    description String? @db.Text
-    videoUrl    String? @db.Text
+    description String?
+    videoUrl    String?
     position    Int
     isPublished Boolean @default(false)
     isFree      Boolean @default(false)
 
     muxData MuxData?
 
-    courseId String
+    courseId String @unique @db.ObjectId
     course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
     userProgress UserProgress[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@index([courseId])
 }
 
 model MuxData {
-    id         String  @id @default(uuid())
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
     assetId    String
     playbackId String?
 
-    chapterId String  @unique
+    chapterId String  @unique @db.ObjectId
     chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-
-    @@index([chapterId])
 }
 
 model UserProgress {
-    id          String  @id @default(uuid())
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
     userId      String
     isCompleted Boolean @default(false)
 
-    chapterId String
+    chapterId String  @unique @db.ObjectId
     chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@unique([chapterId, userId])
-    @@index([chapterId])
 }
 
 model Purchase {
-    id     String @id @default(uuid())
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
     userId String
 
-    courseId String
+    courseId String @unique @db.ObjectId
     course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@unique([courseId, userId])
-    @@index([courseId])
 }
 
 model StripCustomer {
-    id     String @id @default(uuid())
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
     userId String @unique
 
     stripeCustomerId String
